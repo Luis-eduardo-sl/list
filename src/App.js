@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import MinhaLista from './components/MinhaLista';
+import { useState } from "react"
+
 
 function App() {
+const [conselhos, setConselho] = useState([])
+
+const novoConselho = async ()=>{
+  const response= await fetch('https://api.adviceslip.com/advice')
+  const data = await response.json()
+  const conselho = data.slip.advice
+  setConselho([...conselhos, conselho])
+}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>Renderizando Lista</h1>
+     <MinhaLista itens={conselhos} />
+     <button onClick={novoConselho}>Gerar conselho</button>
     </div>
   );
 }
