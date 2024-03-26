@@ -1,2 +1,2 @@
-exercise of lists on react
+exercise of lists and router on react 
 
