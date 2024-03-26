@@ -1,24 +1,31 @@
 import './App.css';
-import MinhaLista from './components/MinhaLista';
-import { useState } from "react"
+import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import Home from './pages/Home'
+import Et from './pages/Et'
+import Telephone from './pages/Telephone';
+import Conselhos from './pages/Conselhos'
 
 
 function App() {
-const [conselhos, setConselho] = useState([])
-
-const novoConselho = async ()=>{
-  const response= await fetch('https://api.adviceslip.com/advice')
-  const data = await response.json()
-  const conselho = data.slip.advice
-  setConselho([...conselhos, conselho])
-}
 
   return (
-    <div className="App">
-     <h1>Renderizando Lista</h1>
-     <MinhaLista itens={conselhos} />
-     <button onClick={novoConselho}>Gerar conselho</button>
-    </div>
+    <Router>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/et">Et</Link></li>
+        <li><Link to="/telephone">Telefone</Link></li>
+        <li><Link to="/conselhos">Conselhos</Link></li>
+      </ul>
+
+      <Routes>
+        <Route path='/' element={<Home/>}></Route>
+        <Route path='/et' element={<Et/>}></Route>
+        <Route path='/telephone' element={<Telephone/>}></Route>
+        <Route path='/conselhos' element={<Conselhos/>}></Route>
+      </Routes>
+
+    </Router>
+
   );
 }
 
